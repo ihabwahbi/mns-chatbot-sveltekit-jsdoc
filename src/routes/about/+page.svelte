@@ -54,9 +54,7 @@
 					href="#"
 					class="block max-w-sm rounded-lg border border-gray-200 bg-blue-50 p-6 shadow hover:bg-gray-100"
 				>
-					<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-						Noteworthy technology acquisitions 2021
-					</h5>
+					<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">How does it work?</h5>
 					<p class="font-normal text-gray-700">
 						Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse
 						chronological order.
