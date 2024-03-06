@@ -25,7 +25,6 @@
 	});
 
 	async function scrollToBottom() {
-		// Wait until the DOM has been updated
 		await tick();
 		const container = document.querySelector('.message-container');
 		if (container) {
@@ -44,6 +43,7 @@
 		isLoading.set(true);
 		startChat.set(true);
 		messages.update((currentMessages) => [...currentMessages, { sender: 'You', content: message }]);
+		scrollToBottom();
 		userMessage.set('');
 
 		try {
@@ -62,6 +62,7 @@
 				...currentMessages,
 				{ sender: 'AI Assistant', content: data.message }
 			]);
+			scrollToBottom();
 		} catch (error) {
 			console.error(error.message);
 		} finally {
@@ -78,7 +79,6 @@
 	$: isDisabled = $userMessage.trim() === '' || $isLoading;
 
 	// Reactive statement to call scrollToBottom whenever messages update
-	$: $messages, scrollToBottom();
 </script>
 
 <main class="flex h-[calc(100dvh)] flex-col">
