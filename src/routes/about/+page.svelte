@@ -42,7 +42,7 @@
 			</h1>
 
 			<p class="mx-auto mt-9 max-w-2xl text-lg tracking-tight text-slate-700 sm:mt-6">
-				<span class="inline-block">Empower Your Decisions with M&S AI Assistant:</span>
+				<span class="inline-block">Empower Your Decisions with M&S EchoEngine:</span>
 				<span class="inline-block">Where Insight Meets Innovation.</span>
 			</p>
 

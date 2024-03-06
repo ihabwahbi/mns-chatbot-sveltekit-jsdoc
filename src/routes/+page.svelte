@@ -4,6 +4,8 @@
 	import Header from './Header.svelte';
 	import { writable } from 'svelte/store';
 	import { fade } from 'svelte/transition';
+	import { marked } from 'marked';
+	import DOMPurify from 'dompurify';
 	const apiUrl =
 		'https://mns-chatbot-backend.azurewebsites.net/api/mns-chatbot-function?code=tp9MuKM6kSVavitcJSBwvflu0-fZNS7dQiBGhvm9ur7LAzFu46AbcA==';
 
@@ -58,9 +60,10 @@
 			}
 
 			const data = await response.json();
+			const formattedContent = DOMPurify.sanitize(marked.parse(data.message));
 			messages.update((currentMessages) => [
 				...currentMessages,
-				{ sender: 'AI Assistant', content: data.message }
+				{ sender: 'EchoEngine', content: formattedContent }
 			]);
 			scrollToBottom();
 		} catch (error) {
@@ -117,7 +120,7 @@
 				</h1>
 
 				<p class="mx-auto mt-9 max-w-2xl text-lg tracking-tight text-slate-700 sm:mt-6">
-					<span class="inline-block">Empower Your Decisions with M&S AI Assistant:</span>
+					<span class="inline-block">Empower Your Decisions with M&S EchoEngine:</span>
 					<span class="inline-block">Where Insight Meets Innovation.</span>
 				</p>
 			</div>
@@ -127,11 +130,13 @@
 				{#each $messages as message}
 					<div>
 						<strong>{message.sender}:</strong>
-						<span class="inline whitespace-pre-wrap break-words">{message.content}</span>
+						<span class="message-content inline whitespace-pre-wrap break-words"
+							>{@html message.content}</span
+						>
 					</div>
 				{/each}
 				{#if $isLoading}
-					<div><strong>AI Assistant:</strong></div>
+					<div><strong>EchoEngine:</strong></div>
 					<div class="flex animate-pulse space-x-4">
 						<div class="flex-1 space-y-6 py-1">
 							<div class="h-2 rounded bg-slate-400"></div>
@@ -204,3 +209,11 @@
 		</div>
 	</div>
 </main>
+
+<style>
+	/* These styles will only apply to this component */
+	:global(.message-content p) {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+</style>
