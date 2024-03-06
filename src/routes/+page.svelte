@@ -1,6 +1,6 @@
 <script>
 	// @ts-nocheck
-
+	import { tick } from 'svelte';
 	import Header from './Header.svelte';
 	import { writable } from 'svelte/store';
 	import { fade } from 'svelte/transition';
@@ -23,6 +23,15 @@
 			textArea.style.height = textArea.scrollHeight + 'px';
 		}
 	});
+
+	async function scrollToBottom() {
+		// Wait until the DOM has been updated
+		await tick();
+		const container = document.querySelector('.message-container');
+		if (container) {
+			container.scrollTop = container.scrollHeight;
+		}
+	}
 
 	// Async function to handle message submission
 	async function handleSubmit() {
@@ -67,6 +76,9 @@
 		}
 	}
 	$: isDisabled = $userMessage.trim() === '' || $isLoading;
+
+	// Reactive statement to call scrollToBottom whenever messages update
+	$: $messages, scrollToBottom();
 </script>
 
 <main class="flex h-[calc(100dvh)] flex-col">
@@ -74,7 +86,7 @@
 
 	<div
 		in:fade={{ duration: 400 }}
-		class="flex flex-grow justify-center overflow-auto bg-gradient-to-b from-cee5fd to-white"
+		class="message-container flex flex-grow justify-center overflow-auto scroll-smooth bg-gradient-to-b from-cee5fd to-white"
 	>
 		{#if !$startChat}
 			<div class="flex flex-col items-center justify-center px-4 text-center sm:px-6 lg:px-8">
@@ -113,7 +125,10 @@
 		{#if $startChat}
 			<div in:fade={{ duration: 400 }} class="w-full p-4 md:w-1/2">
 				{#each $messages as message}
-					<div><strong>{message.sender}:</strong> {message.content}</div>
+					<div>
+						<strong>{message.sender}:</strong>
+						<span class="inline whitespace-pre-wrap break-words">{message.content}</span>
+					</div>
 				{/each}
 				{#if $isLoading}
 					<div><strong>AI Assistant:</strong></div>
