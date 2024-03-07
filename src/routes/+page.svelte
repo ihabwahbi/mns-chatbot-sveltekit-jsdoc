@@ -60,7 +60,9 @@
 			}
 
 			const data = await response.json();
+			console.log(data.message);
 			const formattedContent = DOMPurify.sanitize(marked.parse(data.message));
+			console.log(formattedContent);
 			messages.update((currentMessages) => [
 				...currentMessages,
 				{ sender: 'EchoEngine', content: formattedContent }
@@ -128,10 +130,9 @@
 		{#if $startChat}
 			<div in:fade={{ duration: 400 }} class="w-full p-4 md:w-1/2">
 				{#each $messages as message}
-					<div>
-						<strong>{message.sender}:</strong>
-						<span class="message-content inline whitespace-pre-wrap break-words"
-							>{@html message.content}</span
+					<div class="message-container">
+						<span class="markdown-content inline space-y-1 break-words"
+							><strong>{message.sender}:</strong> {@html message.content}</span
 						>
 					</div>
 				{/each}
@@ -211,9 +212,17 @@
 </main>
 
 <style>
-	/* These styles will only apply to this component */
-	:global(.message-content p) {
-		margin-top: 0;
-		margin-bottom: 0;
+	:global(h3) {
+		font-size: 1rem;
+		color: #0014db;
+		font-weight: bold;
+		margin-top: 0.5rem;
+		margin-bottom: 0.5rem;
+	}
+
+	:global(p) {
+		/* Directly target the first <p> tag within the content */
+		display: inline;
+		margin: 0; /* Remove default margins */
 	}
 </style>
