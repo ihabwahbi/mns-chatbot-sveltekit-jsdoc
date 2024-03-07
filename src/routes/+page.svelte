@@ -1,8 +1,9 @@
 <script>
 	// @ts-nocheck
+	import { onMount } from 'svelte';
 	import { tick } from 'svelte';
 	import Header from './Header.svelte';
-	import { writable } from 'svelte/store';
+	import { writable, get } from 'svelte/store';
 	import { fade } from 'svelte/transition';
 	import { marked } from 'marked';
 	import DOMPurify from 'dompurify';
@@ -14,6 +15,17 @@
 	let messages = writable([]); // An array of message objects
 	let isLoading = writable(false);
 	let startChat = writable(false);
+
+	// Initialize threadId as a writable store without a value
+	let threadId = writable(null); // No direct access to localStorage here
+
+	onMount(() => {
+		// Now safe to access localStorage
+		const storedThreadId = localStorage.getItem('threadId');
+		if (storedThreadId) {
+			threadId.set(storedThreadId);
+		}
+	});
 
 	// Reactive statement for auto-resizing the textarea
 	import { afterUpdate } from 'svelte';
@@ -49,10 +61,18 @@
 		userMessage.set('');
 
 		try {
+			// Use get to access the current value of threadId from the store
+			const currentThreadId = get(threadId);
+			// Prepare the requestBody including the threadId if it exists
+			const requestBody = currentThreadId
+				? { prompt: message, threadId: currentThreadId }
+				: { prompt: message };
+			console.log('Request Body: ', requestBody);
+
 			const response = await fetch(apiUrl, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ prompt: message })
+				body: JSON.stringify(requestBody)
 			});
 
 			if (!response.ok) {
@@ -61,6 +81,12 @@
 
 			const data = await response.json();
 			console.log(data.message);
+			// If a new thread ID is returned and it's different from the current, update
+			if (data.threadId && data.threadId !== currentThreadId) {
+				threadId.set(data.threadId); // Update the Svelte store
+				localStorage.setItem('threadId', data.threadId); // Update localStorage
+				console.log('Updated Thread ID is ', threadId);
+			}
 			const formattedContent = DOMPurify.sanitize(marked.parse(data.message));
 			console.log(formattedContent);
 			messages.update((currentMessages) => [
@@ -132,12 +158,12 @@
 				{#each $messages as message}
 					<div class="message-container">
 						<span class="markdown-content inline space-y-1 break-words"
-							><strong>{message.sender}:</strong> {@html message.content}</span
+							><strong class="text-slbBlue">{message.sender}:</strong> {@html message.content}</span
 						>
 					</div>
 				{/each}
 				{#if $isLoading}
-					<div><strong>EchoEngine:</strong></div>
+					<div><strong class="text-slbBlue">EchoEngine:</strong></div>
 					<div class="flex animate-pulse space-x-4">
 						<div class="flex-1 space-y-6 py-1">
 							<div class="h-2 rounded bg-slate-400"></div>
@@ -214,7 +240,6 @@
 <style>
 	:global(h3) {
 		font-size: 1rem;
-		color: #0014db;
 		font-weight: bold;
 		margin-top: 0.5rem;
 		margin-bottom: 0.5rem;
