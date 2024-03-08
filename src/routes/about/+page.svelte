@@ -41,13 +41,13 @@
 				</span>
 			</h1>
 
-			<p class="mx-auto mt-9 max-w-2xl text-lg tracking-tight text-slate-700 sm:mt-6">
+			<h2 class="mx-auto mt-9 max-w-2xl text-lg tracking-tight text-slate-700 sm:mt-6">
 				<span class="inline-block">Empower Your Decisions with M&S EchoEngine:</span>
 				<span class="inline-block">Where Insight Meets Innovation.</span>
-			</p>
+			</h2>
 
 			<div
-				class="space-between mt-12 flex flex-col gap-y-5 sm:mt-10 sm:flex-row sm:gap-x-6 sm:gap-y-0"
+				class="space-between mt-12 flex flex-col gap-y-5 sm:mt-10 sm:flex-row sm:gap-x-6 sm:gap-y-2"
 			>
 				<a
 					href="#"
@@ -83,7 +83,7 @@
 				</a>
 				<a
 					href="#"
-					class="block max-w-sm rounded-lg border border-gray-200 bg-blue-50 p-6 shadow hover:bg-gray-100"
+					class="mb-4 block max-w-sm rounded-lg border border-gray-200 bg-blue-50 p-6 shadow hover:bg-gray-100"
 				>
 					<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
 						Seamless Integration & User Experience
