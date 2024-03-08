@@ -20,6 +20,10 @@
 	let threadId = writable(null); // No direct access to localStorage here
 
 	onMount(() => {
+		window.addEventListener('beforeunload', () => {
+			// Clear localStorage when the page is about to be refreshed or closed
+			localStorage.removeItem('threadId');
+		});
 		// Now safe to access localStorage
 		const storedThreadId = localStorage.getItem('threadId');
 		if (storedThreadId) {
