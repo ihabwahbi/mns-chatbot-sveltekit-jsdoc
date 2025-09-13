@@ -2,6 +2,7 @@
 	let isOpen = false;
 	import Menubar from './Menubar.svelte';
 	import AnimatedHamburger from './AnimatedHamburger.svelte';
+	import { userStore } from '$lib/stores/userStore';
 </script>
 
 <nav class="bg-slbBlue text-white">
@@ -28,8 +29,22 @@
 				</div>
 			</div>
 
-			<!-- mobile button goes here -->
-			<div class="flex items-center md:hidden"><Menubar /></div>
+			<!-- User info and logout -->
+			<div class="flex items-center space-x-4">
+				{#if $userStore}
+					<div class="hidden items-center space-x-3 md:flex">
+						<span class="text-sm">Welcome, {$userStore.userDetails}</span>
+						<a
+							href="/.auth/logout?post_logout_redirect_uri=/"
+							class="rounded bg-white/20 px-3 py-1 text-sm text-white hover:bg-white/30"
+						>
+							Logout
+						</a>
+					</div>
+				{/if}
+				<!-- mobile button goes here -->
+				<div class="flex items-center md:hidden"><Menubar /></div>
+			</div>
 		</div>
 	</div>
 
@@ -42,5 +57,16 @@
 			href="/about"
 			class="px-3 py-4 text-white no-underline hover:text-gray-200 hover:no-underline">About</a
 		>
+		{#if $userStore}
+			<div class="border-t border-white/20 px-3 py-2">
+				<div class="text-sm">Welcome, {$userStore.userDetails}</div>
+				<a
+					href="/.auth/logout?post_logout_redirect_uri=/"
+					class="mt-2 block text-sm text-white hover:text-gray-200"
+				>
+					Logout
+				</a>
+			</div>
+		{/if}
 	</div>
 </nav>
