@@ -14,8 +14,9 @@ const config = {
 			"components": "$lib/components"
 		},
 		prerender: {
-			handleHttpError: 'warn',
-			handleMissingId: 'warn'
+			handleHttpError: 'ignore',
+			handleMissingId: 'ignore',
+			entries: []
 		}
 	},
 

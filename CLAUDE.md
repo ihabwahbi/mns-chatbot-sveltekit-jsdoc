@@ -10,7 +10,7 @@ This is a SvelteKit chatbot application deployed to Azure Static Web Apps. It fe
 
 ### Essential Commands
 - `npm run dev` - Start development server
-- `npm run build` - Build for production
+- `npm run build` - Build for production (includes copying custom staticwebapp.config.json)
 - `npm run preview` - Preview production build locally
 - `npm run lint` - Check code formatting with Prettier and ESLint
 - `npm run format` - Auto-format code with Prettier

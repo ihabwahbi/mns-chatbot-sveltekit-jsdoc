@@ -1,10 +1,6 @@
 {
   "routes": [
     {
-      "route": "/*",
-      "allowedRoles": ["authenticated"]
-    },
-    {
       "route": "/.auth/login/*",
       "allowedRoles": ["anonymous"]
     },
@@ -15,6 +11,10 @@
     {
       "route": "/.auth/me",
       "allowedRoles": ["anonymous", "authenticated"]
+    },
+    {
+      "route": "/*",
+      "allowedRoles": ["authenticated"]
     }
   ],
   "responseOverrides": {
