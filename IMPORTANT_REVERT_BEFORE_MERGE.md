@@ -74,6 +74,20 @@ const PREVIEW_MODE = false; // Set to false before merging to production
 
 Or remove the entire PREVIEW_MODE block (lines 13-27).
 
+### Step 1c: Disable Preview Mode in +layout.svelte
+
+In `src/routes/+layout.svelte`, change line 10 from:
+```javascript
+const PREVIEW_MODE = true;
+```
+
+To:
+```javascript
+const PREVIEW_MODE = false;
+```
+
+Or remove the entire PREVIEW_MODE block and the associated onMount logic.
+
 ### Step 2: Commit the Restoration
 
 ```bash
@@ -104,6 +118,7 @@ git push
 - [ ] `auth` section is restored and not commented out
 - [ ] `responseOverrides` section is restored for 401 redirects
 - [ ] `PREVIEW_MODE` is set to `false` in `src/routes/+layout.server.js`
+- [ ] `PREVIEW_MODE` is set to `false` in `src/routes/+layout.svelte`
 - [ ] This reminder file is deleted
 - [ ] All tests pass with authentication enabled
 

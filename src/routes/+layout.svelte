@@ -6,6 +6,9 @@
 	/** @type {import('./$types').LayoutServerData} */
 	export let data;
 
+	// PREVIEW MODE - Same as in +layout.server.js
+	const PREVIEW_MODE = true;
+
 	// Update the user store with server-side data
 	$: if (data?.user) {
 		userStore.set(data.user);
@@ -16,7 +19,17 @@
 
 	// Handle client-side authentication check for SPA navigation
 	onMount(() => {
-		if (!data?.user) {
+		// In preview mode, always use mock user
+		if (PREVIEW_MODE) {
+			userStore.set({
+				identityProvider: 'mock',
+				userId: 'preview-user',
+				userDetails: 'Preview User',
+				userRoles: ['anonymous', 'authenticated'],
+				claims: []
+			});
+			authLoading.set(false);
+		} else if (!data?.user) {
 			// Double-check authentication on client side
 			fetch('/.auth/me')
 				.then(res => res.json())
