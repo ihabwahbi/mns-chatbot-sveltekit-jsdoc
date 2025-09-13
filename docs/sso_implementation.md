@@ -20,6 +20,7 @@ This document provides a comprehensive overview of the Single Sign-On (SSO) impl
 ## Project Overview
 
 ### Initial State
+
 - **Application**: SvelteKit-based chatbot with M&S EchoEngine integration
 - **Deployment**: Azure Static Web Apps
 - **Access**: Publicly accessible without authentication

@@ -10,6 +10,22 @@ export async function load({ fetch, url }) {
         };
     }
 
+    // TEMPORARY: Mock user for preview testing without authentication
+    // This should be removed before merging to production
+    const PREVIEW_MODE = true; // Set to false before merging to production
+
+    if (PREVIEW_MODE) {
+        return {
+            user: {
+                identityProvider: 'mock',
+                userId: 'preview-user',
+                userDetails: 'Preview User',
+                userRoles: ['anonymous', 'authenticated'],
+                claims: []
+            }
+        };
+    }
+
     try {
         const response = await fetch('/.auth/me');
 
