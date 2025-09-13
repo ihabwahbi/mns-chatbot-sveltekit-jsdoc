@@ -1,0 +1,1 @@
+{"routes":[],"auth":{"rolesSource":"https://sts.windows.net/41ff26dc-250f-4b13-8981-739be8610c21/","identityProviders":{"azureActiveDirectory":{"registration":{"openIdIssuer":"https://login.microsoftonline.com/41ff26dc-250f-4b13-8981-739be8610c21","clientIdSettingName":"AZURE_CLIENT_ID","clientSecretSettingName":"AZURE_CLIENT_SECRET_APP_SETTING_NAME"}}}}}
