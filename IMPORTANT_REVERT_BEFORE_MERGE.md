@@ -8,9 +8,9 @@ The authentication has been temporarily disabled in `staticwebapp.config.json` t
 
 ## ❗ BEFORE MERGING THIS BRANCH TO MASTER ❗
 
-You **MUST** restore the secure configuration in `staticwebapp.config.json`:
+You **MUST** restore the secure configuration in both `staticwebapp.config.json` AND `src/routes/+layout.server.js`:
 
-### Step 1: Restore the Secure Configuration
+### Step 1a: Restore the Secure Configuration in staticwebapp.config.json
 
 Replace the current content of `staticwebapp.config.json` with:
 
@@ -60,6 +60,20 @@ Replace the current content of `staticwebapp.config.json` with:
 }
 ```
 
+### Step 1b: Disable Preview Mode in +layout.server.js
+
+In `src/routes/+layout.server.js`, change line 15 from:
+```javascript
+const PREVIEW_MODE = true; // Set to false before merging to production
+```
+
+To:
+```javascript
+const PREVIEW_MODE = false; // Set to false before merging to production
+```
+
+Or remove the entire PREVIEW_MODE block (lines 13-27).
+
 ### Step 2: Commit the Restoration
 
 ```bash
@@ -89,6 +103,7 @@ git push
 - [ ] `staticwebapp.config.json` has `"allowedRoles": ["authenticated"]` for the `/*` route
 - [ ] `auth` section is restored and not commented out
 - [ ] `responseOverrides` section is restored for 401 redirects
+- [ ] `PREVIEW_MODE` is set to `false` in `src/routes/+layout.server.js`
 - [ ] This reminder file is deleted
 - [ ] All tests pass with authentication enabled
 
