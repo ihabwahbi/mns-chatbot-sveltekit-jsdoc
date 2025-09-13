@@ -37,6 +37,7 @@
 						<a
 							href="/.auth/logout?post_logout_redirect_uri=/"
 							class="rounded bg-white/20 px-3 py-1 text-sm text-white hover:bg-white/30"
+							data-sveltekit-preload-data="off"
 						>
 							Logout
 						</a>
@@ -63,6 +64,7 @@
 				<a
 					href="/.auth/logout?post_logout_redirect_uri=/"
 					class="mt-2 block text-sm text-white hover:text-gray-200"
+					data-sveltekit-preload-data="off"
 				>
 					Logout
 				</a>

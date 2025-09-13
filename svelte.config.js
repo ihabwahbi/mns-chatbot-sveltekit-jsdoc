@@ -12,6 +12,10 @@ const config = {
 			"@/*": "./path/to/lib/*",
 			"utils": "$lib/utils",
 			"components": "$lib/components"
+		},
+		prerender: {
+			handleHttpError: 'warn',
+			handleMissingId: 'warn'
 		}
 	},
 

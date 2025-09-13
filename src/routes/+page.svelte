@@ -156,6 +156,7 @@
 				<a
 					href="/.auth/login/aad"
 					class="inline-block rounded-lg bg-slbBlue px-6 py-3 text-white hover:bg-opacity-90"
+					data-sveltekit-preload-data="off"
 				>
 					Sign In with Microsoft
 				</a>

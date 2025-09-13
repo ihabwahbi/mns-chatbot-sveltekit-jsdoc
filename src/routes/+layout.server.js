@@ -1,5 +1,15 @@
+// Disable prerendering for all pages since we need authentication
+export const prerender = false;
+
 /** @type {import('./$types').LayoutServerLoad} */
-export async function load({ fetch }) {
+export async function load({ fetch, url }) {
+    // Skip authentication check during build/prerender
+    if (url.hostname === 'sveltekit-prerender') {
+        return {
+            user: null
+        };
+    }
+
     try {
         const response = await fetch('/.auth/me');
 
